@@ -50,10 +50,17 @@ public class Client implements Runnable{
                                         if (input.split(" ")[0].toLowerCase().equals("login") == true) {
                                             String[] vals = input.split(" ");
                                             
-                                            if (this._userlist.contains(new Pair(vals[1], vals[2])) == true) {
+                                            Pair paired = new Pair(vals[1], vals[2]);
+                                            String user = (String) paired.getFirst();
+                                            String pass = (String) paired.getSecond();
+                                            String key = user;
+                                            String keys = StringUtils.padRight(key, 16);
+                                            String cipher = AES.decrypt(pass, keys);
+                                            
+                                            if (this._userlist.contains(new Pair(user, cipher)) == true) {
                                                 if (this.login == false) {
-                                                    this._loginlist.add(new Pair(this.socket, vals[1]));
-                                                    this.username = vals[1];
+                                                    this._loginlist.add(new Pair(this.socket, user));
+                                                    this.username = user;
                                                     this.login = true;
                                                     System.out.println("Users count: " + this._loginlist.size());
                                                     out.println("SUCCESS login");

@@ -8,8 +8,8 @@ package kij_chat_client;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-
 /**
  *
  * @author santen-suru
@@ -35,9 +35,25 @@ public class Write implements Runnable {
 		{
 			while (keepGoing)//WHILE THE PROGRAM IS RUNNING
 			{						
-				String input = chat.nextLine();	//SET NEW VARIABLE input TO THE VALUE OF WHAT THE CLIENT TYPED IN
-				out.println(input);//SEND IT TO THE SERVER
-				out.flush();//FLUSH THE STREAM
+                            String input = chat.nextLine();	//SET NEW VARIABLE input TO THE VALUE OF WHAT THE CLIENT TYPED IN
+                                if (input.split(" ")[0].toLowerCase().equals("login") == true) {
+                                            String[] vals = input.split(" ");
+                                            
+                                            Pair paired = new Pair(vals[1], vals[2]);
+                                            String user = (String) paired.getFirst();
+                                            String pass = (String) paired.getSecond();
+                                            String key = user;
+                                            //String cat = value.substring(0, 3);
+                                            String keys = StringUtils.padRight(key, 16);
+                                            String cipher = AES.encrypt(pass, keys);
+                                            String send = "login " + user + " " + cipher;
+                                            input=send;
+                                            //System.out.println(send);
+                                           
+                                }
+                                 out.println(input);//SEND IT TO THE SERVER
+                                 out.flush();//FLUSH THE STREAK 
+				
                                 
                                 if (input.contains("logout")) {
                                     if (log.contains("true"))
