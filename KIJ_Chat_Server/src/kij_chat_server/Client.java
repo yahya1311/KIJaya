@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.crypto.BadPaddingException;
 
 /** original ->http://www.dreamincode.net/forums/topic/262304-simple-client-and-server-chat-program/
  * 
@@ -47,7 +48,7 @@ public class Client implements Runnable{
 //					out.flush();//FLUSH THE STREAM
                                         
                                         // param LOGIN <userName> <pass>
-                                        if (input.split(" ")[0].toLowerCase().equals("login") == true) {
+                                        /*if (input.split(" ")[0].toLowerCase().equals("login") == true) {
                                             String[] vals = input.split(" ");
                                             
                                             Pair paired = new Pair(vals[1], vals[2]);
@@ -70,6 +71,49 @@ public class Client implements Runnable{
                                                     out.flush();
                                                 }
                                             } else {
+                                                out.println("FAIL login");
+                                                out.flush();
+                                            }
+                                        }*/
+                                        
+                                        // param enrcypted LOGIN <userName> <pass>
+                                        if (input.split(" ")[0].toLowerCase().equals("login") == true) {
+                                            String[] vals = input.split(" ");
+                                            
+                                            Pair paired = new Pair(vals[1], vals[2]);
+                                            String cipheruser = (String) paired.getFirst();
+                                            String cipherpass = (String) paired.getSecond();
+                                            
+                                            boolean exist = false;
+                                            
+                                            for(Pair<String, String> cur : _userlist) {
+                                                String user = (String) cur.getFirst();
+                                                String pass = (String) cur.getSecond();
+                                                String key = user;
+                                                String keys = StringUtils.padRight(key, 16);
+                                                
+                                                try 
+                                                {
+                                                    String plainuser = AES.decrypt(cipheruser, keys);
+                                                    String plainpass = AES.decrypt(cipherpass, keys);
+                                                }
+                                                catch(BadPaddingException e)
+                                                {
+                                                    continue;
+                                                }
+                                                
+                                                if (this.login == false) {
+                                                    this._loginlist.add(new Pair(this.socket, user));
+                                                    this.username = user;
+                                                    this.login = true;
+                                                    exist = true;
+                                                    System.out.println("Users count: " + this._loginlist.size());
+                                                    out.println("SUCCESS login");
+                                                    out.flush();
+                                                } 
+                                            }
+                                            
+                                            if (exist == false){
                                                 out.println("FAIL login");
                                                 out.flush();
                                             }
