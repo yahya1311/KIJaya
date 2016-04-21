@@ -96,21 +96,25 @@ public class Client implements Runnable{
                                                 {
                                                     String plainuser = AES.decrypt(cipheruser, keys);
                                                     String plainpass = AES.decrypt(cipherpass, keys);
+                                                    
+                                                    if(this.login == false)
+                                                    {
+                                                        if (user.equals(plainuser) && pass.equals(plainpass)) {
+                                                            this._loginlist.add(new Pair(this.socket, user));
+                                                            this.username = user;
+                                                            this.login = true;
+                                                            exist = true;
+                                                            System.out.println("Users count: " + this._loginlist.size());
+                                                            out.println("SUCCESS login");
+                                                            out.flush();
+                                                        }
+                                                    }
+                                                    
                                                 }
                                                 catch(BadPaddingException e)
                                                 {
                                                     continue;
                                                 }
-                                                
-                                                if (this.login == false) {
-                                                    this._loginlist.add(new Pair(this.socket, user));
-                                                    this.username = user;
-                                                    this.login = true;
-                                                    exist = true;
-                                                    System.out.println("Users count: " + this._loginlist.size());
-                                                    out.println("SUCCESS login");
-                                                    out.flush();
-                                                } 
                                             }
                                             
                                             if (exist == false){
