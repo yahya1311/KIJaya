@@ -2,7 +2,6 @@ package kij_chat_client;
 
 import java.io.IOException;
 import java.net.Socket;
-import static javafx.application.Platform.exit;
 
 /** original ->http://www.dreamincode.net/forums/topic/262304-simple-client-and-server-chat-program/
  * 
