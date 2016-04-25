@@ -43,6 +43,9 @@ public class Read implements Runnable {
                                             } else if (input.split(" ")[1].toLowerCase().equals("login")) {
                                                 log.clear();
                                                 log.add("true");
+                                            } else if (input.split(" ")[1].toLowerCase().equals("gm")) {
+                                                log.clear();
+                                                log.add("true");
                                             }
                                         }
                                         

@@ -51,6 +51,21 @@ public class Write implements Runnable {
                                             input=send;
                                             //System.out.println(send);
                                            
+                                } else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
+                                            String[] vals = input.split(" ");
+                                            
+                                            Pair paired = new Pair(vals[1], vals[2]);
+                                            String user = (String) paired.getFirst();
+                                            String group_name_and_message = (String) paired.getSecond();
+                                            String key = user;
+                                            //String cat = value.substring(0, 3);
+                                            String keys = StringUtils.padRight(key, 16);
+                                            String cipheruser = AES.encrypt(user, keys);
+                                            String ciphercontent = AES.encrypt(group_name_and_message, keys);
+                                            String send = "gm " + cipheruser + " " + ciphercontent;
+                                            input=send;
+                                            //System.out.println(send);
+                                           
                                 }
                                  out.println(input);//SEND IT TO THE SERVER
                                  out.flush();//FLUSH THE STREAK 

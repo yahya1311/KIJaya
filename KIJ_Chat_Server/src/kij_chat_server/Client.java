@@ -195,13 +195,14 @@ public class Client implements Runnable{
                                         
                                         // param GM <groupName> <message>
                                         if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
-                                            String[] vals = input.split(" ");
-                                            
+                                            String[] vals = input.split(" ");                                            
                                             boolean exist = false;
                                             
                                             for(Pair<String, String> selGroup : _grouplist) {
                                                 if (selGroup.getSecond().equals(this.username)) {
                                                     exist = true;
+                                                    out.println(exist);
+                                                    out.flush();
                                                 }
                                             }
                                             
