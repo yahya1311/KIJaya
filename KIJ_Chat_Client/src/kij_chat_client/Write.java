@@ -7,6 +7,7 @@ package kij_chat_client;
 
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ import java.util.Scanner;
  */
 public class Write implements Runnable {
     
+        private String account; 
 	private Scanner chat;
         private PrintWriter out;
         boolean keepGoing = true;
@@ -43,6 +45,7 @@ public class Write implements Runnable {
                                             String user = (String) paired.getFirst();
                                             String pass = (String) paired.getSecond();
                                             String key = user;
+                                            this.account = user;
                                             //String cat = value.substring(0, 3);
                                             String keys = StringUtils.padRight(key, 16);
                                             String cipheruser = AES.encrypt(user, keys);
@@ -53,16 +56,22 @@ public class Write implements Runnable {
                                            
                                 } else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
                                             String[] vals = input.split(" ");
-                                            
+                                            String[] vals2 = input.split(" ",3);
                                             Pair paired = new Pair(vals[1], vals[2]);
                                             String user = (String) paired.getFirst();
-                                            String group_name_and_message = (String) paired.getSecond();
-                                            String key = user;
-                                            //String cat = value.substring(0, 3);
-                                            String keys = StringUtils.padRight(key, 16);
-                                            String cipheruser = AES.encrypt(user, keys);
-                                            String ciphercontent = AES.encrypt(group_name_and_message, keys);
-                                            String send = "gm " + cipheruser + " " + ciphercontent;
+                                            String message = vals2[2];
+                                            byte[] encrypt = RC4.encrypt(message,this.account);
+                                            String b = Arrays.toString(encrypt);
+                                            String[] byteValues = b.substring(1, b.length() - 1).split(",");
+                                            byte[] bytes = new byte[byteValues.length];
+                                            for (int i=0, len=bytes.length; i<len; i++) {
+                                                bytes[i] = Byte.parseByte(byteValues[i].trim());     
+                                            }
+
+                                            //yang dikirim ke server
+                                            String ciphercontent = Arrays.toString(bytes);
+                                            
+                                            String send = "gm " + user + " " + ciphercontent;
                                             input=send;
                                             //System.out.println(send);
                                            
