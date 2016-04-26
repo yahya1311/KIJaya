@@ -54,7 +54,7 @@ public class Write implements Runnable {
                                             input=send;
                                             //System.out.println(send);
                                            
-                                } else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
+                                } /*else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
                                             String[] vals = input.split(" ");
                                             String[] vals2 = input.split(" ",3);
                                             Pair paired = new Pair(vals[1], vals[2]);
@@ -73,9 +73,10 @@ public class Write implements Runnable {
                                             
                                             String send = "gm " + user + " " + ciphercontent;
                                             input=send;
-                                            //System.out.println(send);
+                                            System.out.println(send);
                                            
-                                }
+                                }*/
+
                                else if( input.split(" ")[0].toLowerCase().equals("cg")==true){
                                             String[] namaGrup = input.split(" ");
                                             String user = namaGrup[1];
@@ -85,7 +86,27 @@ public class Write implements Runnable {
                                             String ciphergrup = AES.encrypt(grup, kunci, kunci);
                                             String kirim = "cg "+cipheruser+" "+ciphergrup;
                                             input = kirim;
-                               }
+                                            
+                               } else if (input.split(" ")[0].toLowerCase().equals("pm") == true) {
+                                            String[] potong = input.split(" ",4);
+                                            String uname_asal = potong[1];
+                                            String uname_tujuan = potong[2];
+                                            String pesan = potong[3];
+                                            
+                                            //Pair paired = new Pair(vals[1], vals[2]);
+                                            //String user = (String) paired.getFirst();
+                                            //String message = vals2[2];
+                                            
+                                            String key = uname_asal+uname_tujuan;
+                                            
+                                            String cipherasal = RC4.encrypt(uname_asal,key);
+                                            String ciphertujuan = RC4.encrypt(uname_tujuan,key);
+                                            String cipherpesan = RC4.encrypt(pesan,key);
+                                            
+                                            String send = "pm " + cipherasal + " " + ciphertujuan + " " + cipherpesan;
+                                            input=send;
+                                            //System.out.println(send);
+                                }
                                  out.println(input);//SEND IT TO THE SERVER
                                  out.flush();//FLUSH THE STREAK 
 				

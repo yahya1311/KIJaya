@@ -141,27 +141,54 @@ public class Client implements Runnable{
                                         }
                                         
                                         // param PM <userName dst> <message>
+//                                        if (input.split(" ")[0].toLowerCase().equals("pm") == true) {
+//                                            String[] vals = input.split(" ");
+//                                            
+//                                            boolean exist = false;
+//                                            
+//                                            for(Pair<Socket, String> cur : _loginlist) {
+//                                                if (cur.getSecond().equals(vals[1])) {
+//                                                    PrintWriter outDest = new PrintWriter(cur.getFirst().getOutputStream());
+//                                                    String messageOut = "";
+//                                                    for (int j = 2; j<vals.length; j++) {
+//                                                        messageOut += vals[j] + " ";
+//                                                    }
+//                                                    System.out.println(this.username + " to " + vals[1] + " : " + messageOut);
+//                                                    outDest.println(this.username + ": " + messageOut);
+//                                                    outDest.flush();
+//                                                    exist = true;
+//                                                }
+//                                            }
+//                                            
+//                                            if (exist == false) {
+//                                                System.out.println("pm to " + vals[1] + " by " + this.username + " failed.");
+//                                                out.println("FAIL pm");
+//                                                out.flush();
+//                                            }
+//                                        }
+                                        
                                         if (input.split(" ")[0].toLowerCase().equals("pm") == true) {
-                                            String[] vals = input.split(" ");
-                                            
+                                            String[] vals = input.split(" ",4);
                                             boolean exist = false;
                                             
                                             for(Pair<Socket, String> cur : _loginlist) {
-                                                if (cur.getSecond().equals(vals[1])) {
-                                                    PrintWriter outDest = new PrintWriter(cur.getFirst().getOutputStream());
-                                                    String messageOut = "";
-                                                    for (int j = 2; j<vals.length; j++) {
-                                                        messageOut += vals[j] + " ";
-                                                    }
-                                                    System.out.println(this.username + " to " + vals[1] + " : " + messageOut);
-                                                    outDest.println(this.username + ": " + messageOut);
+                                               String user = (String) cur.getSecond();
+                                               String key = this.username+user;
+                                               String uname_tujuan = RC4.decrypt(vals[2],key);
+                                                if (cur.getSecond().equals(uname_tujuan)) {
+                                                    PrintWriter outDest = new PrintWriter(cur.getFirst().getOutputStream());                                                        
+                                                    //System.out.println("pm " + this.username + " " + uname_tujuan + " " + vals[3]);
+                                                    String send = "pm " + this.username + " " + uname_tujuan + " " + vals[3];
+                                                    outDest.println(send);
                                                     outDest.flush();
                                                     exist = true;
                                                 }
+                                                
+                                           
                                             }
                                             
                                             if (exist == false) {
-                                                System.out.println("pm to " + vals[1] + " by " + this.username + " failed.");
+                                                System.out.println("pm failed.");
                                                 out.println("FAIL pm");
                                                 out.flush();
                                             }
@@ -197,7 +224,7 @@ public class Client implements Runnable{
                                         }
                                         
                                         // param GM <groupName> <message>
-                                        if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
+                                        /*if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
                                             String[] vals = input.split(" ");                                            
                                             boolean exist = false;
                                             for(Pair<String, String> selGroup : _grouplist) {
@@ -243,7 +270,7 @@ public class Client implements Runnable{
                                                 out.println("FAIL gm");
                                                 out.flush();
                                             }
-                                        }
+                                        }*/
                                         
                                         // param BM <message>
                                         if (input.split(" ")[0].toLowerCase().equals("bm") == true) {
