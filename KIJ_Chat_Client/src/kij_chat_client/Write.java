@@ -46,7 +46,6 @@ public class Write implements Runnable {
                                             String pass = (String) paired.getSecond();
                                             String key = user;
                                             this.account = user;
-                                            //String cat = value.substring(0, 3);
                                             String keys = StringUtils.padRight(key, 16);
                                             String cipheruser = AES.encrypt(user, keys, keys);
                                             String cipherpass = AES.encrypt(pass, keys, keys);
@@ -82,10 +81,6 @@ public class Write implements Runnable {
                                             String uname_asal = potong[1];
                                             String uname_tujuan = potong[2];
                                             String pesan = potong[3];
-                                            
-                                            //Pair paired = new Pair(vals[1], vals[2]);
-                                            //String user = (String) paired.getFirst();
-                                            //String message = vals2[2];
                                             
                                             String key = uname_asal+uname_tujuan;
                                             

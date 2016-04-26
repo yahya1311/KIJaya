@@ -34,7 +34,6 @@ public class Read implements Runnable {
 			while (keepGoing)//WHILE THE PROGRAM IS RUNNING
 			{						
 				if(this.in.hasNext()) {
-                                                                   //IF THE SERVER SENT US SOMETHING
                                         input = this.in.nextLine();
                                         
                                         if (input.split(" ")[0].toLowerCase().equals("success")) {
@@ -59,7 +58,7 @@ public class Read implements Runnable {
                                             String receive = "from " + uname_asal + " :  " + plainpesan;
                                             
                                             System.out.println(receive);
-                                         }
+                                        }
                                         else if (input.split(" ")[0].toLowerCase().equals("gm")) {
                                             String[] hasil = input.split(" ");
                                             String from = hasil[1];
@@ -68,10 +67,8 @@ public class Read implements Runnable {
                                             String semua_pesan = RC4.decrypt(pesan,group);
                                             String receive2 = from + " @ " + group + " group: " + semua_pesan;
                                             System.out.println(receive2);
-                                         }
-                                        
+                                         } 
                                 }
-                                
 			}
 		}
 		catch (Exception e)
