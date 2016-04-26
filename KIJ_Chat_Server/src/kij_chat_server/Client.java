@@ -224,7 +224,7 @@ public class Client implements Runnable{
                                         }
                                         
                                         // param GM <groupName> <message>
-                                        /*if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
+                                        if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
                                             String[] vals = input.split(" ");                                            
                                             boolean exist = false;
                                             for(Pair<String, String> selGroup : _grouplist) {
@@ -242,24 +242,10 @@ public class Client implements Runnable{
                                                                 String messageOut = "";
                                                                 for (int j = 2; j<vals.length; j++) {
                                                                     messageOut += vals[j] + " ";
-                                                                }
-                                                                String c = messageOut;
-      
-                                                                String[] lolo = c.substring(1, c.length() - 1).split(",");
-                                                                byte[] mbem = new byte[lolo.length];
-                                                                for (int i=0, len=mbem.length; i<len; i++) {
-                                                                    try {
-                                                                            mbem[i] = Byte.parseByte(lolo[i].trim());
-                                                                        } catch (Exception e) {
-                                                                            String[] p = lolo[i].trim().split("]");
-                                                                            mbem[i] = Byte.parseByte(p[0]);
-                                                                        }                                                                         
-                                                                    }
-
-                                                                //System.out.println("Decrypting...");
-                                                                String decrypted = RC4.decrypt(mbem, this.username);
-                                                                System.out.println(this.username + " to " + vals[1] + " group: " + decrypted);
-                                                                outDest.println(this.username + " @ " + vals[1] + " group: " + decrypted);
+                                                                }      
+                                                               
+                                                                //System.out.println(this.username + " to " + vals[1] + " group: " + messageOut);
+                                                                outDest.println("gm " + this.username + " @ " + vals[1] + " group: " + messageOut);
                                                                 outDest.flush();
                                                             }
                                                         }
@@ -270,7 +256,7 @@ public class Client implements Runnable{
                                                 out.println("FAIL gm");
                                                 out.flush();
                                             }
-                                        }*/
+                                        }
                                         
                                         // param BM <message>
                                         if (input.split(" ")[0].toLowerCase().equals("bm") == true) {

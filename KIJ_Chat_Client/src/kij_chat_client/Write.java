@@ -54,28 +54,18 @@ public class Write implements Runnable {
                                             input=send;
                                             //System.out.println(send);
                                            
-                                } /*else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
+                                } else if (input.split(" ")[0].toLowerCase().equals("gm") == true) {
                                             String[] vals = input.split(" ");
                                             String[] vals2 = input.split(" ",3);
                                             Pair paired = new Pair(vals[1], vals[2]);
-                                            String user = (String) paired.getFirst();
+                                            String Group = (String) paired.getFirst();
                                             String message = vals2[2];
-                                            byte[] encrypt = RC4.encrypt(message,this.account);
-                                            String b = Arrays.toString(encrypt);
-                                            String[] byteValues = b.substring(1, b.length() - 1).split(",");
-                                            byte[] bytes = new byte[byteValues.length];
-                                            for (int i=0, len=bytes.length; i<len; i++) {
-                                                bytes[i] = Byte.parseByte(byteValues[i].trim());     
-                                            }
-
-                                            //yang dikirim ke server
-                                            String ciphercontent = Arrays.toString(bytes);
-                                            
-                                            String send = "gm " + user + " " + ciphercontent;
+                                            String ciphercontent = RC4.encrypt(message,Group);                                            
+                                            String send = "gm " + Group + " " + ciphercontent;
                                             input=send;
-                                            System.out.println(send);
+                                            //System.out.println(Group);
                                            
-                                }*/
+                                }
 
                                else if( input.split(" ")[0].toLowerCase().equals("cg")==true){
                                             String[] namaGrup = input.split(" ");

@@ -36,15 +36,12 @@ public class Read implements Runnable {
 				if(this.in.hasNext()) {
                                                                    //IF THE SERVER SENT US SOMETHING
                                         input = this.in.nextLine();
-					
+                                        
                                         if (input.split(" ")[0].toLowerCase().equals("success")) {
                                             System.out.println(input);//PRINT IT OUT
                                             if (input.split(" ")[1].toLowerCase().equals("logout")) {
                                                 keepGoing = false;
                                             } else if (input.split(" ")[1].toLowerCase().equals("login")) {
-                                                log.clear();
-                                                log.add("true");
-                                            } else if (input.split(" ")[1].toLowerCase().equals("gm")) {
                                                 log.clear();
                                                 log.add("true");
                                             }
@@ -62,6 +59,15 @@ public class Read implements Runnable {
                                             String receive = "from " + uname_asal + " :  " + plainpesan;
                                             
                                             System.out.println(receive);
+                                         }
+                                        else if (input.split(" ")[0].toLowerCase().equals("gm")) {
+                                            String[] hasil = input.split(" ");
+                                            String from = hasil[1];
+                                            String group = hasil[3];
+                                            String pesan = hasil[5];
+                                            String semua_pesan = RC4.decrypt(pesan,group);
+                                            String receive2 = from + " @ " + group + " group: " + semua_pesan;
+                                            System.out.println(receive2);
                                          }
                                         
                                 }
