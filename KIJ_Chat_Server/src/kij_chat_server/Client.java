@@ -171,6 +171,9 @@ public class Client implements Runnable{
                                         if (input.split(" ")[0].toLowerCase().equals("cg") == true) {
                                             String[] vals = input.split(" ");
                                             
+                                            String cipherNamaGrup = vals[2];
+                                            String Key = StringUtils.padright(this.username, 16);
+                                            String namaGrup = AES.decrypt(cipherNamaGrup, Key, Key);
                                             boolean exist = false;
                                             
                                             for(Pair<String, String> selGroup : _grouplist) {
@@ -181,13 +184,13 @@ public class Client implements Runnable{
                                             
                                             if(exist == false) {
                                                 Group group = new Group();
-                                                int total = group.updateGroup(vals[1], this.username, _grouplist);
+                                                int total = group.updateGroup(namaGrup, this.username, _grouplist);
                                                 System.out.println("total group: " + total);
-                                                System.out.println("cg " + vals[1] + " by " + this.username + " successed.");
+                                                System.out.println("cg " + namaGrup + " by " + this.username + " successed.");
                                                 out.println("SUCCESS cg");
                                                 out.flush();
                                             } else {
-                                                System.out.println("cg " + vals[1] + " by " + this.username + " failed.");
+                                                System.out.println("cg " + namaGrup + " by " + this.username + " failed.");
                                                 out.println("FAIL cg");
                                                 out.flush();
                                             }
