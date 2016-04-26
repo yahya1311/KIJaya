@@ -45,6 +45,9 @@ public class Read implements Runnable {
                                                 log.add("true");
                                             }
                                         }
+                                        else if (input.split(" ")[0].toLowerCase().equals("fail")) {
+                                            System.out.println(input);//PRINT IT OUT
+                                        }
                                         else if (input.split(" ")[0].toLowerCase().equals("pm")) {
                                             String[] potong = input.split(" ",4);
                                             String uname_asal = potong[1];

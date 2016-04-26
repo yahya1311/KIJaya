@@ -41,9 +41,8 @@ public class Write implements Runnable {
                                 if (input.split(" ")[0].toLowerCase().equals("login") == true) {
                                             String[] vals = input.split(" ");
                                             
-                                            Pair paired = new Pair(vals[1], vals[2]);
-                                            String user = (String) paired.getFirst();
-                                            String pass = (String) paired.getSecond();
+                                            String user = vals[1];
+                                            String pass = vals[2];
                                             String key = user;
                                             this.account = user;
                                             String keys = StringUtils.padRight(key, 16);
