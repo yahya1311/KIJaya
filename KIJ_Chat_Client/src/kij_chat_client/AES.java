@@ -24,9 +24,9 @@ import javax.crypto.spec.IvParameterSpec;
 public class AES{
     
      //private static final String ALGO = "AES";
-     static String IV = "AAAAAAAAAAAAAAAA";
+     //static String IV = "AAAAAAAAAAAAAAAA";
 
-public static String encrypt(String Data, String keys) throws Exception {
+public static String encrypt(String Data, String keys, String IV) throws Exception {
         Key key = generateKey(keys);
         Cipher c = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
         c.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
@@ -35,7 +35,7 @@ public static String encrypt(String Data, String keys) throws Exception {
         return encryptedValue;
     }
 
-    public static String decrypt(String encryptedData, String keys) throws Exception {
+    public static String decrypt(String encryptedData, String keys, String IV) throws Exception {
         Key key = generateKey(keys);
         Cipher c = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
         c.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));

@@ -94,8 +94,8 @@ public class Client implements Runnable{
                                                 
                                                 try 
                                                 {
-                                                    String plainuser = AES.decrypt(cipheruser, keys);
-                                                    String plainpass = AES.decrypt(cipherpass, keys);
+                                                    String plainuser = AES.decrypt(cipheruser, keys, keys);
+                                                    String plainpass = AES.decrypt(cipherpass, keys, keys);
                                                     
                                                     if(this.login == false)
                                                     {

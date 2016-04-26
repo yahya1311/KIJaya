@@ -48,8 +48,8 @@ public class Write implements Runnable {
                                             this.account = user;
                                             //String cat = value.substring(0, 3);
                                             String keys = StringUtils.padRight(key, 16);
-                                            String cipheruser = AES.encrypt(user, keys);
-                                            String cipherpass = AES.encrypt(pass, keys);
+                                            String cipheruser = AES.encrypt(user, keys, keys);
+                                            String cipherpass = AES.encrypt(pass, keys, keys);
                                             String send = "login " + cipheruser + " " + cipherpass;
                                             input=send;
                                             //System.out.println(send);
