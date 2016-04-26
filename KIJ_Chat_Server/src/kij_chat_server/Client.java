@@ -172,12 +172,12 @@ public class Client implements Runnable{
                                             String[] vals = input.split(" ");
                                             
                                             String cipherNamaGrup = vals[2];
-                                            String Key = StringUtils.padright(this.username, 16);
+                                            String Key = StringUtils.padRight(this.username, 16);
                                             String namaGrup = AES.decrypt(cipherNamaGrup, Key, Key);
                                             boolean exist = false;
                                             
                                             for(Pair<String, String> selGroup : _grouplist) {
-                                                if (selGroup.getFirst().equals(vals[1])) {
+                                                if (selGroup.getFirst().equals(namaGrup)) {
                                                     exist = true;
                                                 }
                                             }

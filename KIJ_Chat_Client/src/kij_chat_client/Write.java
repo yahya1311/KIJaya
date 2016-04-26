@@ -75,15 +75,17 @@ public class Write implements Runnable {
                                             input=send;
                                             //System.out.println(send);
                                            
-                                } else if( input.split(" ")[0].toLowerCase().equals("cg")==true){
+                                }
+                               else if( input.split(" ")[0].toLowerCase().equals("cg")==true){
                                             String[] namaGrup = input.split(" ");
+                                            String user = namaGrup[1];
                                             String grup = namaGrup[2];
-                                            String kunci = StringUtils.padright(this.account, 16);
-                                            String cipheruser = AES.encrypt(this.account, kunci, kunci);
+                                            String kunci = StringUtils.padRight(user, 16);
+                                            String cipheruser = AES.encrypt(user, kunci, kunci);
                                             String ciphergrup = AES.encrypt(grup, kunci, kunci);
                                             String kirim = "cg "+cipheruser+" "+ciphergrup;
                                             input = kirim;
-                                }
+                               }
                                  out.println(input);//SEND IT TO THE SERVER
                                  out.flush();//FLUSH THE STREAK 
 				
