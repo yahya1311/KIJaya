@@ -7,6 +7,8 @@ package kij_chat_client;
 import javax.crypto.spec.*;
 import java.security.*;
 import javax.crypto.*;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 /**
  *
  * @author Administrator
@@ -15,7 +17,7 @@ import javax.crypto.*;
 public class RC4 {
 private static String algorithm = "RC4";
  
-   public static byte[] encrypt(String toEncrypt, String key) throws Exception {
+   public static String encrypt(String toEncrypt, String key) throws Exception {
       // create a binary key from the argument key (seed)
       SecureRandom sr = new SecureRandom(key.getBytes());
       KeyGenerator kg = KeyGenerator.getInstance(algorithm);
@@ -31,10 +33,13 @@ private static String algorithm = "RC4";
       // enctypt!
       byte[] encrypted = cipher.doFinal(toEncrypt.getBytes());
  
-      return encrypted;
+      String encryptedValue = new BASE64Encoder().encode(encrypted);
+      return encryptedValue;
+        
+      //return encrypted;
    }
  
-   public static String decrypt(byte[] toDecrypt, String key) throws Exception {
+   public static String decrypt(String toDecrypt, String key) throws Exception {
       // create a binary key from the argument key (seed)
       SecureRandom sr = new SecureRandom(key.getBytes());
       KeyGenerator kg = KeyGenerator.getInstance(algorithm);
@@ -44,8 +49,9 @@ private static String algorithm = "RC4";
       // do the decryption with that key
       Cipher cipher = Cipher.getInstance(algorithm);
       cipher.init(Cipher.DECRYPT_MODE, sk);
-      byte[] decrypted = cipher.doFinal(toDecrypt);
- 
-      return new String(decrypted);
+      byte[] decordedValue = new BASE64Decoder().decodeBuffer(toDecrypt);
+      byte[] decrypted = cipher.doFinal(decordedValue);
+      String decryptedValue = new String(decrypted);
+      return decryptedValue;
    }
 }

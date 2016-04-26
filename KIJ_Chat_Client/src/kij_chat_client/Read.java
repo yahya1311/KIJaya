@@ -36,8 +36,9 @@ public class Read implements Runnable {
 				if(this.in.hasNext()) {
                                                                    //IF THE SERVER SENT US SOMETHING
                                         input = this.in.nextLine();
-					System.out.println(input);//PRINT IT OUT
+					
                                         if (input.split(" ")[0].toLowerCase().equals("success")) {
+                                            System.out.println(input);//PRINT IT OUT
                                             if (input.split(" ")[1].toLowerCase().equals("logout")) {
                                                 keepGoing = false;
                                             } else if (input.split(" ")[1].toLowerCase().equals("login")) {
@@ -48,6 +49,20 @@ public class Read implements Runnable {
                                                 log.add("true");
                                             }
                                         }
+                                        else if (input.split(" ")[0].toLowerCase().equals("pm")) {
+                                            String[] potong = input.split(" ",4);
+                                            String uname_asal = potong[1];
+                                            String uname_tujuan = potong[2];
+                                            String pesan = potong[3];
+                                            
+                                            String key = uname_asal+uname_tujuan;
+                                            
+                                            String plainpesan = RC4.decrypt(pesan,key);
+                                            
+                                            String receive = "from " + uname_asal + " :  " + plainpesan;
+                                            
+                                            System.out.println(receive);
+                                         }
                                         
                                 }
                                 
